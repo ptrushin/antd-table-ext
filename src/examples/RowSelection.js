@@ -5,6 +5,7 @@ const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
+    // eslint-disable-next-line
     render: (text) => <a>{text}</a>,
   },
   {

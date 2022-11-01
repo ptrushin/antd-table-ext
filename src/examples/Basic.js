@@ -6,6 +6,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        // eslint-disable-next-line
         render: (text) => <a>{text}</a>,
         //resizable: false,
         //movable: false,
@@ -46,7 +47,9 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
+                {/* eslint-disable-next-line */}
                 <a>Invite {record.name}</a>
+                {/* eslint-disable-next-line */}
                 <a>Delete</a>
             </Space>
         ),

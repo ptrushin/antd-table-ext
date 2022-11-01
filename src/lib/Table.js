@@ -33,6 +33,7 @@ const Table = (props) => {
             columnHeadersCnt,
             propsColumns: propsColumns2
         };
+    // eslint-disable-next-line
     }, [propsColumns2]);
 
     //const columnsMemoPrev = usePrevious(columnsMemo);
