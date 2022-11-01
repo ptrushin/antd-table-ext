@@ -1,0 +1,3 @@
+include:
+  - project: devops/include/oss
+    file: pub.custis.netcore.nodejs.yml

@@ -1,0 +1,49 @@
+.react-resizable {
+    position: relative;
+}
+
+.react-resizable-handle {
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    bottom: 0;
+    right: -10px;
+    box-sizing: border-box;
+    cursor: col-resize;
+}
+
+.ReactDragListView-line {
+    border-left-color: #bfbfbf !important;
+}
+
+.ant-table-pagination.ant-pagination {
+    margin: 16px 0px 0px 0px !important
+}
+
+.editable-row .ant-form-item-explain {
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+}
+
+.iconbutton {
+    padding: 0px;
+    margin: 0px;
+    border: 0px
+}
+
+.ant-table-cell .ant-form-item-explain-error {
+    visibility: collapse;
+    display: none;
+}
+
+.ant-table-cell .ant-form-item-label {
+    visibility: collapse;
+    display: none;
+}
+
+.antd-ext-inner-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+}
