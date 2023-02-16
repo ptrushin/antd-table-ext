@@ -7,7 +7,11 @@
     "ui",
     "antd",
     "grid",
-    "table"
+    "table",
+    "resizable",
+    "mavable",
+    "hidable",
+    "fixable"
   ],
   "repository": {
     "type": "git",
@@ -22,6 +26,7 @@
   "private": false,
   "dependencies": {
     "clone-deep": "^4.0.1",
+    "fast-deep-equal": "^3.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-drag-listview": "^0.2.1",

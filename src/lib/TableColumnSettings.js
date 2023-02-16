@@ -4,8 +4,8 @@ import locale_en_US from './locale/en_US';
 
 const width = 400;
 
-const TableColumnSettings = ({ locale: localeProps, visible, x, y, columnKey, onResetColumnSettings, onClose, columns, allColumns, onColumnVisible, onColumnFixed }) => {
-    const locale = localeProps || locale_en_US;
+const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKey, onResetColumnSettings, onClose, columns, allColumns, onColumnVisible, onColumnFixed }) => {
+    const locale = {...locale_en_US, ...propsLocale};
 
     const column = allColumns.filter(_ => _.key === columnKey)[0];
 
@@ -19,13 +19,13 @@ const TableColumnSettings = ({ locale: localeProps, visible, x, y, columnKey, on
         if (!onColumnVisible) return;
         for (let c of allColumns) {
             const newHidden = checkedKeys.checked.indexOf(c.key) < 0;
-            if (c.hidden !== newHidden) onColumnVisible({ columnKey: c.key, hidden: newHidden });
+            if (c.currentHidden !== newHidden) onColumnVisible({ columnKey: c.key, hidden: newHidden });
         }
     };
     const getTreeData = () => {
         const getNodes = (columns) => {
             let nodes = []
-            for (let column of columns.sort((a, b) => a.index - b.index)) {
+            for (let column of columns.sort((a, b) => a.currentIndex - b.currentIndex)) {
                 let node = {
                     title: column.title instanceof Function ? column.title() : column.title,
                     key: column.key,
@@ -41,14 +41,14 @@ const TableColumnSettings = ({ locale: localeProps, visible, x, y, columnKey, on
         return getNodes(columns);
     }
     const getCheckedKeys = () => {
-        return allColumns.filter(_ => !_.hidden).map(_ => _.key);
+        return allColumns.filter(_ => !_.currentHidden).map(_ => _.key);
     }
     return visible &&
-        <Modal visible={visible} open={visible} onCancel={onClose} width={width} closable={false} footer={null} style={{ position: 'absolute', left: `${(x > width + 100 ? x - width : x)}px`, top: `${y}px` }}>
+        <Modal open={visible} onCancel={onClose} width={width} closable={false} footer={null} style={{ position: 'absolute', left: `${(x > width + 100 ? x - width : x)}px`, top: `${y}px` }}>
             <Tabs items={[
                 {
                     label: locale.Table.column,
-                    key: "column",
+                    key: 'column',
                     children: <React.Fragment>
                         {locale.Table.fix}: <Radio.Group onChange={fixedChange} value={column.fixed}>
                             <Radio value={'left'}>{locale.Table.onLeft}</Radio>
@@ -59,21 +59,25 @@ const TableColumnSettings = ({ locale: localeProps, visible, x, y, columnKey, on
                 },
                 {
                     label: locale.Table.visibility,
-                    key: "visible",
-                    children: <Tree
-                        checkable
-                        checkStrictly={true}
-                        treeData={getTreeData()}
-                        checkedKeys={getCheckedKeys()}
-                        onCheck={visibleChange}
-                    />
+                    key: 'visible',
+                    children: <React.Fragment>
+                        <Tree
+                            checkable
+                            checkStrictly={true}
+                            treeData={getTreeData()}
+                            checkedKeys={getCheckedKeys()}
+                            onCheck={visibleChange}
+                        />
+                    </React.Fragment>
                 },
                 {
                     label: locale.Table.common,
-                    key: "common",
-                    children: <Button onClick={onResetColumnSettings}>{locale.Table.resetToDefault}</Button>
-                }
-            ]} />
+                    key: 'common',
+                    children: <React.Fragment>
+                        <Button onClick={onResetColumnSettings}>{locale.Table.resetToDefault}</Button>
+                    </React.Fragment>
+                }]}
+            />
         </Modal>
 }
 

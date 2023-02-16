@@ -8,6 +8,10 @@ import MultipleSorter from './examples/MultipleSorter';
 import ResetFilterAndSorter from './examples/ResetFilterAndSorter';
 import CustomizedFilterPanel from './examples/CustomizedFilterPanel';
 import GroupingTableHead from './examples/GroupingTableHead';
+import DynamicSettings from './examples/DynamicSettings';
+import EditableRows from './examples/EditableRows';
+import NestedTables from './examples/NestedTables';
+import Summary from './examples/Summary';
 
 import 'antd/dist/antd.min.css';
 
@@ -30,6 +34,14 @@ function App() {
     CustomizedFilterPanel:<br/><CustomizedFilterPanel />
     <br/>
     GroupingTableHead:<br/><GroupingTableHead />
+    <br/>
+    DynamicSettings:<br/><DynamicSettings />
+    <br/>
+    EditableRows:<br/><EditableRows />
+    <br/>
+    NestedTables:<br/><NestedTables />
+    <br/>
+    Summary:<br/><Summary />
   </div>
 }
 

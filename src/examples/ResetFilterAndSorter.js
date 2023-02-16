@@ -109,7 +109,8 @@ const App = () => {
         <Button onClick={clearFilters}>Clear filters</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
       </Space>
-      <Table columns={columns} dataSource={data} onChange={handleChange} />
+      <Table columns={columns} dataSource={data} onChange={handleChange} 
+        stateStorable={{location: false, prefix: 'ResetFilterAndSorter'}}/>
     </>
   );
 };

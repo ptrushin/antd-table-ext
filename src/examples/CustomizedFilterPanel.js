@@ -150,6 +150,7 @@ const App = () => {
       sortDirections: ['descend', 'ascend'],
     },
   ];
-  return <Table columns={columns} dataSource={data} />;
+  return <Table columns={columns} dataSource={data}
+    stateStorable={{location: false, prefix: 'CustomizedFilterPanel'}} />;
 };
 export default App;

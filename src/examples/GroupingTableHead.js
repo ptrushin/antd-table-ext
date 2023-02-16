@@ -107,6 +107,7 @@ const App = () => (
       x: 'calc(700px + 50%)',
       y: 240,
     }}
+    stateStorable={{location: false, prefix: 'GroupingTableHead'}}
   />
 );
 export default App;

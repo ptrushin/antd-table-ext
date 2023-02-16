@@ -68,6 +68,6 @@ const App = () => {
         ],
     };
     return <Table rowSelection={rowSelection} columns={columns} dataSource={data} 
-        stateStorable={{location: false, prefix: 'RowSelectionCustom'}}/>;
+        stateStorable={{location: false, prefix: 'RowSelectionAndOperation'}}/>;
 };
 export default App;

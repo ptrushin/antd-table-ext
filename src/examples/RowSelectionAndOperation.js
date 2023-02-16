@@ -62,7 +62,8 @@ const App = () => {
           {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
         </span>
       </div>
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+      <Table rowSelection={rowSelection} columns={columns} dataSource={data} 
+        stateStorable={{location: false, prefix: 'RowSelectionAndOperation'}}/>
     </div>
   );
 };

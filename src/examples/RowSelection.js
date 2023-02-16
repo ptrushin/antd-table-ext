@@ -78,6 +78,7 @@ const App = () => {
         }}
         columns={columns}
         dataSource={data}
+        stateStorable={{location: false, prefix: 'RowSelection'}}
       />
     </div>
   );

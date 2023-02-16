@@ -78,5 +78,6 @@ const data = [
         tags: ['cool', 'teacher'],
     },
 ];
-const App = () => <Table columns={columns} dataSource={data} />;
+const App = () => <Table columns={columns} dataSource={data}
+stateStorable={{location: false, prefix: 'Basic'}} />;
 export default App;
