@@ -1,6 +1,6 @@
 {
   "name": "antd-table-ext",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "author": "ptrushin",
   "keywords": [
@@ -9,7 +9,7 @@
     "grid",
     "table",
     "resizable",
-    "mavable",
+    "movable",
     "hidable",
     "fixable"
   ],
@@ -25,13 +25,10 @@
   "main": "dist/index.js",
   "private": false,
   "dependencies": {
-    "clone-deep": "^4.0.1",
-    "fast-deep-equal": "^3.1.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-drag-listview": "^0.2.1",
-    "react-resizable": "^3.0.4",
-    "react-scripts": "5.0.1"
+    "clone-deep": "4.0.1",
+    "fast-deep-equal": "3.1.3",
+    "react-drag-listview": "0.2.1",
+    "react-resizable": "3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,7 +58,10 @@
   },
   "devDependencies": {
     "antd": "^4.23.6",
-    "react-highlight-words": "^0.18.0"
+    "react-highlight-words": "^0.18.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
   },
   "babel": {
     "presets": [
