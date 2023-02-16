@@ -64,5 +64,9 @@ const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 const App = () => <Table columns={columns} dataSource={data} onChange={onChange} 
+  scroll={{
+    x: 'calc(700px + 50%)',
+    y: 240,
+  }}
   stateStorable={{location: false, prefix: 'MultipleSorter'}}/>;
 export default App;
