@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "",
   "author": "ptrushin",
+  "homepage": "https://ptrushin.github.io/antd-table-ext",
   "keywords": [
     "ui",
     "antd",
@@ -36,7 +37,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:npm": "cross-env NODE_ENV=production && rimraf -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
-    "prepublishOnly": "npm run build:npm"
+    "prepublishOnly": "npm run build:npm",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -58,9 +61,10 @@
   },
   "devDependencies": {
     "antd": "^4.23.6",
-    "react-highlight-words": "^0.18.0",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.18.0",
     "react-scripts": "5.0.1"
   },
   "babel": {
