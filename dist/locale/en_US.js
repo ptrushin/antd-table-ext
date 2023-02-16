@@ -8,7 +8,8 @@ const locale = {
     visibility: 'Visibility',
     common: 'Common',
     resetToDefault: 'Reset to default',
-    empty: '(empty)',
+    empty: '(Empty)',
+    exclude: '(Except)',
     filter: 'OK',
     reset: 'Reset',
     orTryToFind: 'or try to find specific'

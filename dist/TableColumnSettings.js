@@ -3,7 +3,7 @@ import { Modal, Button, Tabs, Radio, Tree } from 'antd';
 import locale_en_US from './locale/en_US';
 const width = 400;
 const TableColumnSettings = ({
-  locale: localeProps,
+  locale: propsLocale = {},
   visible,
   x,
   y,
@@ -15,7 +15,10 @@ const TableColumnSettings = ({
   onColumnVisible,
   onColumnFixed
 }) => {
-  const locale = localeProps || locale_en_US;
+  const locale = {
+    ...locale_en_US,
+    ...propsLocale
+  };
   const column = allColumns.filter(_ => _.key === columnKey)[0];
   const fixedChange = e => {
     if (!onColumnFixed) return;
@@ -30,7 +33,7 @@ const TableColumnSettings = ({
     if (!onColumnVisible) return;
     for (let c of allColumns) {
       const newHidden = checkedKeys.checked.indexOf(c.key) < 0;
-      if (c.hidden !== newHidden) onColumnVisible({
+      if (c.currentHidden !== newHidden) onColumnVisible({
         columnKey: c.key,
         hidden: newHidden
       });
@@ -39,7 +42,7 @@ const TableColumnSettings = ({
   const getTreeData = () => {
     const getNodes = columns => {
       let nodes = [];
-      for (let column of columns.sort((a, b) => a.index - b.index)) {
+      for (let column of columns.sort((a, b) => a.currentIndex - b.currentIndex)) {
         let node = {
           title: column.title instanceof Function ? column.title() : column.title,
           key: column.key,
@@ -55,10 +58,9 @@ const TableColumnSettings = ({
     return getNodes(columns);
   };
   const getCheckedKeys = () => {
-    return allColumns.filter(_ => !_.hidden).map(_ => _.key);
+    return allColumns.filter(_ => !_.currentHidden).map(_ => _.key);
   };
   return visible && /*#__PURE__*/React.createElement(Modal, {
-    visible: visible,
     open: visible,
     onCancel: onClose,
     width: width,
@@ -72,7 +74,7 @@ const TableColumnSettings = ({
   }, /*#__PURE__*/React.createElement(Tabs, {
     items: [{
       label: locale.Table.column,
-      key: "column",
+      key: 'column',
       children: /*#__PURE__*/React.createElement(React.Fragment, null, locale.Table.fix, ": ", /*#__PURE__*/React.createElement(Radio.Group, {
         onChange: fixedChange,
         value: column.fixed
@@ -85,20 +87,20 @@ const TableColumnSettings = ({
       }, locale.Table.undefined)))
     }, {
       label: locale.Table.visibility,
-      key: "visible",
-      children: /*#__PURE__*/React.createElement(Tree, {
+      key: 'visible',
+      children: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Tree, {
         checkable: true,
         checkStrictly: true,
         treeData: getTreeData(),
         checkedKeys: getCheckedKeys(),
         onCheck: visibleChange
-      })
+      }))
     }, {
       label: locale.Table.common,
-      key: "common",
-      children: /*#__PURE__*/React.createElement(Button, {
+      key: 'common',
+      children: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
         onClick: onResetColumnSettings
-      }, locale.Table.resetToDefault)
+      }, locale.Table.resetToDefault))
     }]
   }));
 };

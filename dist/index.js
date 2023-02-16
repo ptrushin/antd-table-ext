@@ -1,5 +1,4 @@
 import Table from './Table';
-import en_US from './locale/en_US';
 import ru_RU from './locale/ru_RU';
-export { Table };
-export { en_US, ru_RU };
+import en_US from './locale/en_US';
+export { Table, ru_RU, en_US };
