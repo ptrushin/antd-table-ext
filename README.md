@@ -3,7 +3,7 @@
 Examples - https://ptrushin.github.io/antd-table-ext/
 
 # usage
-* change source for import Table from 'antd' to 'antd-ext-table'
+* change source for import Table from 'antd' to 'antd-table-ext'
 * ... profit!
 * try to resize column
 * try to move column
