@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/antd-table-ext/static/css/main.32faf16e.css",
+    "main.js": "/antd-table-ext/static/js/main.fdca7846.js",
+    "index.html": "/antd-table-ext/index.html",
+    "main.32faf16e.css.map": "/antd-table-ext/static/css/main.32faf16e.css.map",
+    "main.fdca7846.js.map": "/antd-table-ext/static/js/main.fdca7846.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.32faf16e.css",
+    "static/js/main.fdca7846.js"
+  ]
+}
