@@ -10,7 +10,7 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 * try to visible/hide column (with context menu on right click)
 * try to fix column (with context menu on right click)
 * try to multiple sort with shift button
-* column current width, index, visible, fix store in local storage between browser sessions - try to close and ope page
+* column current width, index, visible, fix store in local storage between browser sessions - try to close and open page
 * column filter and sort can store in address bar (by settings)
 
 # restrictions
