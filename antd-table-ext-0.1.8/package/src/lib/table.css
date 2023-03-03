@@ -1,0 +1,23 @@
+.react-resizable {
+    position: relative;
+}
+
+.react-resizable-handle {
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    bottom: 0;
+    right: -10px;
+    box-sizing: border-box;
+    cursor: col-resize;
+}
+
+.ReactDragListView-line {
+    border-left-color: #bfbfbf !important;
+}
+
+.antd-ext-inner-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+}
