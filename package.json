@@ -1,6 +1,6 @@
 {
   "name": "antd-table-ext",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "",
   "author": "ptrushin",
   "homepage": "https://ptrushin.github.io/antd-table-ext",
@@ -20,10 +20,10 @@
   },
   "license": "MIT",
   "files": [
-    "src/lib",
+    "dist",
     "README.md"
   ],
-  "main": "src/lib/index.js",
+  "main": "dist/index.js",
   "private": false,
   "dependencies": {
     "clone-deep": "4.0.1",
@@ -36,6 +36,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build:npm": "cross-env NODE_ENV=production && rimraf -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
+    "prepublishOnly": "npm run build:npm",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
