@@ -52,13 +52,17 @@ export const setStateToStorage = (columns, stateStorable, state, history) => {
   if (stateStorable.localStorage !== false) {
     const localStorageKey = getLocalStorageKey(prefix);
     if (!state) localStorage.removeItem(localStorageKey);else {
-      let _state = cloneDeep(state);
-      for (let key in _state.columns) {
-        let column = _state.columns[key];
-        delete column.sortOrder;
-        delete column.currentSortIndex;
-        delete column.filteredValue;
-        delete column.column;
+      let _state = {
+        columns: {}
+      };
+      for (let key in state.columns) {
+        const column = state.columns[key];
+        _state.columns[key] = {
+          currentIndex: column.currentIndex,
+          currentFixed: column.currentFixed,
+          currentHidden: column.currentHidden,
+          currentWidth: column.currentWidth
+        };
       }
       localStorage.setItem(localStorageKey, JSON.stringify(_state));
     }
@@ -87,7 +91,6 @@ export const setStateToStorage = (columns, stateStorable, state, history) => {
         }
       }
       pars[sortName] = sortValue || null;
-      console.log('--', state.columns);
       for (let kv of Object.entries(state.columns).filter(_ => _[1].filteredValue || _[1].filteredValue != _[1].column.defaultFilteredValue).sort((a, b) => a[1].column.key.localeCompare(b[1].column.key))) {
         let column = kv[1];
         if (stateStorable.storeDefault || column.column.defaultFilteredValue && column.filteredValue) {
@@ -97,7 +100,6 @@ export const setStateToStorage = (columns, stateStorable, state, history) => {
         pars[getPrefixedkey(kv[0], prefix)] = filterValue;
       }
     }
-    console.log('pars', pars, columns);
     updateLocationsPars(history, pars);
   }
 };
@@ -134,7 +136,6 @@ export const getColumnsDefaultState = columns => {
   return state;
 };
 export const columnsToState = (setState, columns) => {
-  console.log('columnsToState', columns);
   setState(state => {
     let _state = !state ? {
       columns: {}
@@ -172,7 +173,6 @@ export const stateToColumns = (state, columns) => {
       column.filteredValue = stateColumn && stateColumn.filteredValue ? stateColumn.filteredValue : null;
     }
   }
-  console.log('stateToColumns', state, columns);
   return columns;
 };
 export const getInitialState = (columns, stateStorable, history) => {

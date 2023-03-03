@@ -6,7 +6,10 @@ window.addEventListener('popstate', () => {
 export function useHistory() {
   const getHistory = () => ({
     location: window.location,
-    push: (path, state) => window.history.pushState(state, undefined, path)
+    push: (path, state) => {
+      window.history.pushState(state, undefined, path);
+      modifyState();
+    }
   });
   const [history, setHistory] = useState(getHistory());
   const callback = useCallback(() => {

@@ -1,6 +1,6 @@
 {
   "name": "antd-table-ext",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "author": "ptrushin",
   "homepage": "https://ptrushin.github.io/antd-table-ext",
@@ -39,6 +39,7 @@
     "build:npm": "cross-env NODE_ENV=production && rimraf -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
     "prepublishOnly": "npm run build:npm",
     "predeploy": "npm run build",
+    "prepack": "npm run build:npm",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
