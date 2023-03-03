@@ -36,7 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:npm": "cross-env NODE_ENV=production && rimraf -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
+    "build:npm": "rimraf -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
     "prepublishOnly": "npm run build:npm",
     "predeploy": "npm run build",
     "prepack": "npm run build:npm",
@@ -62,7 +62,6 @@
   },
   "devDependencies": {
     "antd": "^4.23.6",
-    "cross-env": "^6.0.3",
     "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
