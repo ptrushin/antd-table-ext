@@ -86,5 +86,5 @@ const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 const App = () => <Table columns={columns} dataSource={data} onChange={onChange} 
-  stateStorable={{location: false, prefix: 'FilterAndSorter'}}/>;
+  stateStorable={{location: true, prefix: 'FilterAndSorter'}}/>;
 export default App;
