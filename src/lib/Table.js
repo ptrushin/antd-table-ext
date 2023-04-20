@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Table as AntdTable } from 'antd';
 import { Resizable } from "react-resizable";
 import ReactDragListView from "react-drag-listview";
@@ -63,6 +63,10 @@ const Table = ({
     addLastColumn = true,
     ...rest }) => {
 
+    const [top, setTop] = useState();
+
+    const wrapperRef = useCallback(node => {    if (node !== null) {      setTop(node.getBoundingClientRect().top);    }  }, []);
+
     const columnDefaults = {
         ...globalColumnDefaults,
         ...propsDefaults
@@ -123,7 +127,7 @@ const Table = ({
             if (column.sortable) {
                 let multiple = column.currentSortIndex || 0;
                 if (!column.sorter) column.sorter = { multiple: multiple }
-                else column.sorter.multiple = multiple; 
+                else column.sorter.multiple = multiple;
             }
             column.fixed = column.currentFixed;
         }
@@ -253,7 +257,7 @@ const Table = ({
     const prepareColumns = (columns, level) => {
         const sortedColumns = columns.sort((a, b) => a.currentIndex - b.currentIndex).filter(_ => !_.currentHidden);
         const tableColumns = [];
-        
+
         for (let column of sortedColumns) {
             if (column.children) {
                 column.children = prepareColumns(column.children, level + 1);
@@ -347,34 +351,37 @@ const Table = ({
 
     let tableColumns = prepareColumns(cloneDeep(topLevelColumns), 0);
 
-    return <MultiHeaderMovableTitle columnMoved={columnMoved} levels={columnHeadersCnt}>
-        <AntdTable
-            //bordered={true}
-            //size='small'
-            columns={tableColumns}
-            components={{
-                header: {
-                    cell: ResizableTitle
-                },
-                ...components
-            }}
-            onChange={change}
-            /*scroll={{
-                y: true
-            }}*/
-            ref={ref}
-            {...rest}
-        />
-        {tableColumnSettingsDialogState && <TableColumnSettings
-            onColumnVisible={columnVisible}
-            onColumnFixed={columnFixed}
-            onResetColumnSettings={resetColumnSettings}
-            columns={topLevelColumns}
-            allColumns={allColumns}
-            onClose={() => setTableColumnSettingsDialogState({ visible: false })}
-            locale={locale}
-            {...tableColumnSettingsDialogState} />}
-    </MultiHeaderMovableTitle>
+    return <div ref={wrapperRef}>
+        <MultiHeaderMovableTitle columnMoved={columnMoved} levels={columnHeadersCnt}>
+            <AntdTable
+                //bordered={true}
+                //size='small'
+                columns={tableColumns}
+                components={{
+                    header: {
+                        cell: ResizableTitle
+                    },
+                    ...components
+                }}
+                onChange={change}
+                /*scroll={{
+                    y: true
+                }}*/
+                ref={ref}
+                scroll={rest.fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60)}px)` } : undefined}
+                {...rest}
+            />
+            {tableColumnSettingsDialogState && <TableColumnSettings
+                onColumnVisible={columnVisible}
+                onColumnFixed={columnFixed}
+                onResetColumnSettings={resetColumnSettings}
+                columns={topLevelColumns}
+                allColumns={allColumns}
+                onClose={() => setTableColumnSettingsDialogState({ visible: false })}
+                locale={locale}
+                {...tableColumnSettingsDialogState} />}
+        </MultiHeaderMovableTitle>
+    </div>
 };
 
 //Table.Summary = AntdTable.Summary;
@@ -397,7 +404,7 @@ const ResizableTitle = (props) => {
     useEffect(() => {
         if (resizable && !ifWidthInPixels && onInitWidth) {
             // -1 для колонки по умолчанию
-            onInitWidth(ref.current.offsetWidth+(notPxWidthDelta || 0));
+            onInitWidth(ref.current.offsetWidth + (notPxWidthDelta || 0));
         }
         // eslint-disable-next-line
     }, [ifWidthInPixels, resizable]);

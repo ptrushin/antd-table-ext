@@ -1,5 +1,5 @@
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Table as AntdTable } from 'antd';
 import { Resizable } from "react-resizable";
 import ReactDragListView from "react-drag-listview";
@@ -61,6 +61,12 @@ const Table = ({
   addLastColumn = true,
   ...rest
 }) => {
+  const [top, setTop] = useState();
+  const wrapperRef = useCallback(node => {
+    if (node !== null) {
+      setTop(node.getBoundingClientRect().top);
+    }
+  }, []);
   const columnDefaults = {
     ...globalColumnDefaults,
     ...propsDefaults
@@ -396,7 +402,9 @@ const Table = ({
     }
   }
   let tableColumns = prepareColumns(cloneDeep(topLevelColumns), 0);
-  return /*#__PURE__*/React.createElement(MultiHeaderMovableTitle, {
+  return /*#__PURE__*/React.createElement("div", {
+    ref: wrapperRef
+  }, /*#__PURE__*/React.createElement(MultiHeaderMovableTitle, {
     columnMoved: columnMoved,
     levels: columnHeadersCnt
   }, /*#__PURE__*/React.createElement(AntdTable
@@ -414,7 +422,11 @@ const Table = ({
     /*scroll={{
         y: true
     }}*/,
-    ref: ref
+    ref: ref,
+    scroll: rest.fullscreen ? {
+      x: 100,
+      y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60)}px)`
+    } : undefined
   }, rest)), tableColumnSettingsDialogState && /*#__PURE__*/React.createElement(TableColumnSettings, _extends({
     onColumnVisible: columnVisible,
     onColumnFixed: columnFixed,
@@ -425,7 +437,7 @@ const Table = ({
       visible: false
     }),
     locale: locale
-  }, tableColumnSettingsDialogState)));
+  }, tableColumnSettingsDialogState))));
 };
 
 //Table.Summary = AntdTable.Summary;

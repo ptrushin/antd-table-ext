@@ -103,11 +103,8 @@ const App = () => (
     dataSource={data}
     bordered
     size="middle"
-    scroll={{
-      x: 'calc(700px + 50%)',
-      y: 240,
-    }}
     stateStorable={{location: false, prefix: 'GroupingTableHead'}}
+    fullscreen={true}
   />
 );
 export default App;

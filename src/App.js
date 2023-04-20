@@ -17,6 +17,8 @@ import 'antd/dist/antd.min.css';
 
 function App() {
   return <div style={{padding: 20}}>
+    GroupingTableHead:<br/><GroupingTableHead />
+    <br/>
     Basic:<br/><Basic />
     <br/>
     RowSelection: <RowSelection />
@@ -32,8 +34,6 @@ function App() {
     ResetFilterAndSorter:<br/><ResetFilterAndSorter />
     <br/>
     CustomizedFilterPanel:<br/><CustomizedFilterPanel />
-    <br/>
-    GroupingTableHead:<br/><GroupingTableHead />
     <br/>
     DynamicSettings:<br/><DynamicSettings />
     <br/>
