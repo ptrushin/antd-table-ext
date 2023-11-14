@@ -10,7 +10,7 @@
 * multiple sort by user (with Shift key pressed)
 
 # usage
-* change source for import Table from 'antd' to 'antd-ext-table'
+* change source for import Table from 'antd' to 'antd-table-ext'
 * ... profit! 
 
 # restrictions
