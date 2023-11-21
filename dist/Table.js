@@ -395,11 +395,11 @@ const Table = ({
   const ref = forwardedRef || internalRef;
   if (ref && ref.current) {
     // программно делаем scroll, иначе могут прыгать заголовоки относительно колонок
-    const scroller = ref.current.querySelector('.ant-table-body');
+    /*const scroller = ref.current.querySelector('.ant-table-body');
     if (scroller) {
-      scroller.scrollTop = scroller.scrollTop + 1;
-      scroller.scrollTop = scroller.scrollTop - 1;
-    }
+        scroller.scrollTop = scroller.scrollTop + 1;
+        scroller.scrollTop = scroller.scrollTop - 1;
+        */
   }
   let tableColumns = prepareColumns(cloneDeep(topLevelColumns), 0);
   return /*#__PURE__*/React.createElement("div", {

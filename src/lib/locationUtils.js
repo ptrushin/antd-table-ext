@@ -12,6 +12,7 @@ export const updateLocationsPars = (history, pars, deletePrefix) => {
         let key = kv[0];
         let value = kv[1];
         let currentLocationValue = currentLocationPars.get(key);
+        // eslint-disable-next-line
         if (value != currentLocationValue) {
             updated = true;
             if (!value) currentLocationPars.delete(key);
@@ -19,6 +20,7 @@ export const updateLocationsPars = (history, pars, deletePrefix) => {
         }
     }
     if (updated) {
-        changeLocation(`${location.pathname.endsWith('/') ? location.pathname : `${location.pathname}/`}?${currentLocationPars.toString()}`);
+        const parsStr = currentLocationPars.toString();
+        changeLocation(`${location.pathname.endsWith('/') ? location.pathname : `${location.pathname}/`}${parsStr ? "?" : ""}${parsStr}`);
     }
 }

@@ -103,7 +103,7 @@ const App = () => (
     dataSource={data}
     bordered
     size="middle"
-    stateStorable={{location: false, prefix: 'GroupingTableHead'}}
+    stateStorable={{prefix: 'GroupingTableHead'}}
     fullscreen={true}
   />
 );

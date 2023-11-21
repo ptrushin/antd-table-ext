@@ -13,8 +13,6 @@ import EditableRows from './examples/EditableRows';
 import NestedTables from './examples/NestedTables';
 import Summary from './examples/Summary';
 
-import 'antd/dist/antd.min.css';
-
 function App() {
   return <div style={{padding: 20}}>
     GroupingTableHead:<br/><GroupingTableHead />

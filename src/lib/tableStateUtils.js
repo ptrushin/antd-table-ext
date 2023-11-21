@@ -1,6 +1,5 @@
 import { getColumnsSortIndexMap } from "./columnUtils";
 import { getLocationPars, updateLocationsPars } from './locationUtils';
-import cloneDeep from "clone-deep";
 import equal from 'fast-deep-equal';
 
 const nullValue = 'null';
@@ -29,7 +28,7 @@ export const getStateFromStorage = (columns, stateStorable, history) => {
             let i = 0;
             for (let kv of sortValue.split(',').map(_ => _.split(' '))) {
                 if (!state.columns[kv[0]]) state.columns[kv[0]] = {};
-                if (kv[1] == nullValue) {
+                if (kv[1] === nullValue) {
                     state.columns[kv[0]].sortOrder = null;
                     state.columns[kv[0]].currentSortIndex = null;
                 } else {

@@ -57,15 +57,18 @@ const Table = ({
     onChange,
     onResetColumnSettings,
     stateStorable = true,
-    history: propsHistory,
+    history:    propsHistory,
     types,
     locale,
     addLastColumn = true,
     ...rest }) => {
-
     const [top, setTop] = useState();
 
-    const wrapperRef = useCallback(node => {    if (node !== null) {      setTop(node.getBoundingClientRect().top);    }  }, []);
+    const wrapperRef = useCallback(node => {
+        if (node !== null) {
+            setTop(node.getBoundingClientRect().top);
+        }
+    }, []);
 
     const columnDefaults = {
         ...globalColumnDefaults,
@@ -342,11 +345,11 @@ const Table = ({
     const ref = forwardedRef || internalRef;
     if (ref && ref.current) {
         // программно делаем scroll, иначе могут прыгать заголовоки относительно колонок
-        const scroller = ref.current.querySelector('.ant-table-body');
+        /*const scroller = ref.current.querySelector('.ant-table-body');
         if (scroller) {
             scroller.scrollTop = scroller.scrollTop + 1;
             scroller.scrollTop = scroller.scrollTop - 1;
-        }
+            */
     }
 
     let tableColumns = prepareColumns(cloneDeep(topLevelColumns), 0);
