@@ -21,3 +21,8 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 
 # localization
 * gets from locale prop
+
+# properties
+Property | Description | Type | Default
+-|-|-|-
+fullscreen | true/{deltaY: ?} | boolean/json | false

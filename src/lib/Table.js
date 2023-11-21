@@ -371,7 +371,7 @@ const Table = ({
                     y: true
                 }}*/
                 ref={ref}
-                scroll={rest.fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60)}px)` } : undefined}
+                scroll={rest.fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (rest.fullscreen.deltaY)}px)` } : undefined}
                 {...rest}
             />
             {tableColumnSettingsDialogState && <TableColumnSettings
