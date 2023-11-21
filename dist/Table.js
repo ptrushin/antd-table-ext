@@ -40,7 +40,6 @@ stateStorable = true || {prefix, localStorage = true || {}, location = true }
 */
 
 const Table = ({
-  table: propsTable,
   forwardedRef,
   components,
   columns: propsColumns,
@@ -56,9 +55,9 @@ const Table = ({
   onResetColumnSettings,
   stateStorable = true,
   history: propsHistory,
-  types,
   locale,
   addLastColumn = true,
+  fullscreen,
   ...rest
 }) => {
   const [top, setTop] = useState();
@@ -423,9 +422,9 @@ const Table = ({
         y: true
     }}*/,
     ref: ref,
-    scroll: rest.fullscreen ? {
+    scroll: fullscreen ? {
       x: 100,
-      y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60)}px)`
+      y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + fullscreen.deltaY}px)`
     } : undefined
   }, rest)), tableColumnSettingsDialogState && /*#__PURE__*/React.createElement(TableColumnSettings, _extends({
     onColumnVisible: columnVisible,
