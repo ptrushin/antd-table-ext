@@ -26,14 +26,17 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 Property | Description| Default
 -|-|-
 fullscreen | true / {deltaY: ?} | false
-stateStorable | true / {prefix, localStorage = true || {}, location = true } | true
-defaults | | ```json
-{
-    movable: true,
-    resizable: true,
-    hideable: true,
-    fixable: true,
-    sortable: false,
-    filterable: false,
-    ellipsis: true
-}```
+stateStorable | true / {prefix, storeDefault, localStorage = true, location = true } | true
+defaults | | <code><br/>{<br/>movable: true,<br/>resizable: true,<br/>hideable: true,<br/>fixable: true,<br/>sortable: false,<br/>filterable: false,<br/>ellipsis: true<br/>}</code>
+history | {location, push} (react-router-dom) |
+locale | json like example locale |
+addLastColumn | add last column to expand table to 100% | true
+onColumnMoved ||
+onColumnResized ||
+onColumnHid ||
+onColumnFixed ||
+onColumnSorted ||
+onColumnFiltered ||
+onColumnChanged ||
+onResetColumnSettings ||
+
