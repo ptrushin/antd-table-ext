@@ -22,7 +22,7 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 # localization
 * gets from locale prop
 
-# properties
+# additional table properties
 Property | Description| Default
 -|-|-
 fullscreen | true / {deltaY: ?} | false
@@ -39,4 +39,26 @@ onColumnSorted ||
 onColumnFiltered ||
 onColumnChanged ||
 onResetColumnSettings ||
+
+# additional column properties
+Property | Description| Default
+-|-|-
+width | defaultWidth |
+currentWidth || 
+resizable || true
+defaultHidden || false
+currentHidden || 
+hideable || true
+currentIndex ||
+movable || true
+fixed | defaultFixed |
+currentFixed ||
+fixable || true
+defaultSortOrder ||
+sortOrder || 
+sorter/sortable || true
+currentSortIndex ||
+description ||
+filterSerialize ||
+filterDeserialize ||
 
