@@ -42,7 +42,6 @@ stateStorable = true || {prefix, localStorage = true || {}, location = true }
 */
 
 const Table = ({
-    table: propsTable,
     forwardedRef,
     components,
     columns: propsColumns,
@@ -57,10 +56,10 @@ const Table = ({
     onChange,
     onResetColumnSettings,
     stateStorable = true,
-    history:    propsHistory,
-    types,
+    history: propsHistory,
     locale,
     addLastColumn = true,
+    fullscreen,
     ...rest }) => {
     const [top, setTop] = useState();
 
@@ -371,7 +370,7 @@ const Table = ({
                     y: true
                 }}*/
                 ref={ref}
-                scroll={rest.fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (rest.fullscreen.deltaY)}px)` } : undefined}
+                scroll={fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY)}px)` } : undefined}
                 {...rest}
             />
             {tableColumnSettingsDialogState && <TableColumnSettings

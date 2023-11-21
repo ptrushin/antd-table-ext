@@ -23,6 +23,17 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 * gets from locale prop
 
 # properties
-Property | Description | Type | Default
--|-|-|-
-fullscreen | true/{deltaY: ?} | boolean/json | false
+Property | Description| Default
+-|-|-
+fullscreen | true / {deltaY: ?} | false
+stateStorable | true / {prefix, localStorage = true || {}, location = true } | true
+defaults | | ```json
+{
+    movable: true,
+    resizable: true,
+    hideable: true,
+    fixable: true,
+    sortable: false,
+    filterable: false,
+    ellipsis: true
+}```
