@@ -13,6 +13,11 @@ import EditableRows from './examples/EditableRows';
 import NestedTables from './examples/NestedTables';
 import Summary from './examples/Summary';
 
+//import ru_RU from './lib/locale/ru_RU';
+//import antdTableExt from './lib';
+
+//antdTableExt.locale = ru_RU
+
 function App() {
   return <div style={{padding: 20}}>
     GroupingTableHead:<br/><GroupingTableHead />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Tabs, Radio, Tree } from 'antd';
-import locale_en_US from './locale/en_US';
+import global from './global';
 const width = 400;
 const TableColumnSettings = ({
   locale: propsLocale = {},
@@ -16,7 +16,7 @@ const TableColumnSettings = ({
   onColumnFixed
 }) => {
   const locale = {
-    ...locale_en_US,
+    ...global.locale,
     ...propsLocale
   };
   const column = allColumns.filter(_ => _.key === columnKey)[0];

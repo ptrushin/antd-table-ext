@@ -1,11 +1,11 @@
 import React from 'react';
 import { Modal, Button, Tabs, Radio, Tree } from 'antd';
-import locale_en_US from './locale/en_US';
+import global from './global';
 
 const width = 400;
 
 const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKey, onResetColumnSettings, onClose, columns, allColumns, onColumnVisible, onColumnFixed }) => {
-    const locale = {...locale_en_US, ...propsLocale};
+    const locale = {...global.locale, ...propsLocale};
 
     const column = allColumns.filter(_ => _.key === columnKey)[0];
 
