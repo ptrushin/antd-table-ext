@@ -21,24 +21,6 @@ export const globalColumnDefaults = {
   filterable: false,
   ellipsis: true
 };
-
-/*
-column: {
-    (width), currentWidth, resizable = true, table onColumnResized({columnKey, width, columns[]})
-    defaultHidden = false, currentHidden, hideable = true, table onColumnHid({columnKey, hidden, columns[]})
-    defaultIndex from array index, currentIndex, movable = true, table onColumnMoved({columnKey, toColumnKey, columns[]})
-    (fixed), currentFixed, fixable = true, table onColumnFixed({columnKey, hidden, columns[]})
-    (defaultSortOrder), sortOrder, sorter/sortable = true, table OnColumnSorted({columnKey, sortIndex, sortOrder, columns[]})
-    defaultSortIndex (sorter/multiple), currentSortIndex, ... multiple sort with shift button
-    description,
-    filterSerialize
-    filterDeserialize
-}
-table onColumnFiltered({columnKey, filteredValue, columns[]})
-table onColumnChanged({action, columnKey, ?, columns[]]})
-stateStorable = true || {prefix, localStorage = true || {}, location = true }
-*/
-
 const Table = ({
   forwardedRef,
   components,

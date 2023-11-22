@@ -148,6 +148,7 @@ export const getColumnsDefaultState = (columns) => {
         }
         stateColumn.filteredValue = column.filteredValue || column.defaultFilteredValue || null;
         stateColumn.currentFixed = column.fixed;
+        stateColumn.currentHidden = column.defaultHidden;
         state.columns[column.key] = stateColumn;
     }
     return state;

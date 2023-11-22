@@ -7,6 +7,7 @@ const columns = [
     key: 'name',
     width: 100,
     fixed: 'left',
+    defaultHidden: true,
     filters: [
       {
         text: 'Joe',
