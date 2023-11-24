@@ -355,7 +355,7 @@ const Table = ({
                     y: true
                 }}*/
                 ref={ref}
-                scroll={fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY)}px)` } : undefined}
+                scroll={fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY || 0)}px)` } : undefined}
                 locale={locale}
                 {...rest}
             />
