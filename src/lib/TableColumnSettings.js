@@ -47,18 +47,18 @@ const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKe
         <Modal open={visible} onCancel={onClose} width={width} closable={false} footer={null} style={{ position: 'absolute', left: `${(x > width + 100 ? x - width : x)}px`, top: `${y}px` }}>
             <Tabs items={[
                 {
-                    label: locale.Table.column,
+                    label: locale.AntdTableExt.Table.column,
                     key: 'column',
                     children: <React.Fragment>
-                        {locale.Table.fix}: <Radio.Group onChange={fixedChange} value={column.fixed}>
-                            <Radio value={'left'}>{locale.Table.onLeft}</Radio>
-                            <Radio value={'right'}>{locale.Table.onRight}</Radio>
-                            <Radio value={undefined}>{locale.Table.undefined}</Radio>
+                        {locale.AntdTableExt.Table.fix}: <Radio.Group onChange={fixedChange} value={column.fixed}>
+                            <Radio value={'left'}>{locale.AntdTableExt.Table.onLeft}</Radio>
+                            <Radio value={'right'}>{locale.AntdTableExt.Table.onRight}</Radio>
+                            <Radio value={undefined}>{locale.AntdTableExt.Table.undefined}</Radio>
                         </Radio.Group>
                     </React.Fragment>
                 },
                 {
-                    label: locale.Table.visibility,
+                    label: locale.AntdTableExt.Table.visibility,
                     key: 'visible',
                     children: <React.Fragment>
                         <Tree
@@ -71,10 +71,10 @@ const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKe
                     </React.Fragment>
                 },
                 {
-                    label: locale.Table.common,
+                    label: locale.AntdTableExt.Table.common,
                     key: 'common',
                     children: <React.Fragment>
-                        <Button onClick={onResetColumnSettings}>{locale.Table.resetToDefault}</Button>
+                        <Button onClick={onResetColumnSettings}>{locale.AntdTableExt.Table.resetToDefault}</Button>
                     </React.Fragment>
                 }]}
             />

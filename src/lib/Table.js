@@ -7,6 +7,7 @@ import { getAllColumns, getColumnsHeadersCnt, getColumnsMap } from './columnUtil
 import { getInitialState, setStateToStorage, changeColumnState, columnsToState, stateToColumns, getColumnsDefaultState } from './tableStateUtils';
 import './table.css';
 import { useHistory } from './useHistory';
+import global from './global';
 
 const cloneDeep = require('clone-deep');
 
@@ -40,10 +41,11 @@ const Table = ({
     onResetColumnSettings,
     stateStorable = true,
     history: propsHistory,
-    locale,
+    locale: propsLocale = {},
     addLastColumn = true,
     fullscreen,
     ...rest }) => {
+    const locale = {...global.locale, ...propsLocale};
     const [top, setTop] = useState();
 
     const wrapperRef = useCallback(node => {
@@ -354,6 +356,7 @@ const Table = ({
                 }}*/
                 ref={ref}
                 scroll={fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY)}px)` } : undefined}
+                locale={locale}
                 {...rest}
             />
             {tableColumnSettingsDialogState && <TableColumnSettings

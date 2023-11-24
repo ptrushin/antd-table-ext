@@ -73,20 +73,20 @@ const TableColumnSettings = ({
     }
   }, /*#__PURE__*/React.createElement(Tabs, {
     items: [{
-      label: locale.Table.column,
+      label: locale.AntdTableExt.Table.column,
       key: 'column',
-      children: /*#__PURE__*/React.createElement(React.Fragment, null, locale.Table.fix, ": ", /*#__PURE__*/React.createElement(Radio.Group, {
+      children: /*#__PURE__*/React.createElement(React.Fragment, null, locale.AntdTableExt.Table.fix, ": ", /*#__PURE__*/React.createElement(Radio.Group, {
         onChange: fixedChange,
         value: column.fixed
       }, /*#__PURE__*/React.createElement(Radio, {
         value: 'left'
-      }, locale.Table.onLeft), /*#__PURE__*/React.createElement(Radio, {
+      }, locale.AntdTableExt.Table.onLeft), /*#__PURE__*/React.createElement(Radio, {
         value: 'right'
-      }, locale.Table.onRight), /*#__PURE__*/React.createElement(Radio, {
+      }, locale.AntdTableExt.Table.onRight), /*#__PURE__*/React.createElement(Radio, {
         value: undefined
-      }, locale.Table.undefined)))
+      }, locale.AntdTableExt.Table.undefined)))
     }, {
-      label: locale.Table.visibility,
+      label: locale.AntdTableExt.Table.visibility,
       key: 'visible',
       children: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Tree, {
         checkable: true,
@@ -96,11 +96,11 @@ const TableColumnSettings = ({
         onCheck: visibleChange
       }))
     }, {
-      label: locale.Table.common,
+      label: locale.AntdTableExt.Table.common,
       key: 'common',
       children: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
         onClick: onResetColumnSettings
-      }, locale.Table.resetToDefault))
+      }, locale.AntdTableExt.Table.resetToDefault))
     }]
   }));
 };
