@@ -8,6 +8,7 @@ import { getAllColumns, getColumnsHeadersCnt, getColumnsMap } from './columnUtil
 import { getInitialState, setStateToStorage, changeColumnState, columnsToState, stateToColumns, getColumnsDefaultState } from './tableStateUtils';
 import './table.css';
 import { useHistory } from './useHistory';
+import global from './global';
 const cloneDeep = require('clone-deep');
 let isShiftPressed = false;
 window.addEventListener('keyup', e => isShiftPressed = e.shiftKey);
@@ -37,11 +38,15 @@ const Table = ({
   onResetColumnSettings,
   stateStorable = true,
   history: propsHistory,
-  locale,
+  locale: propsLocale = {},
   addLastColumn = true,
   fullscreen,
   ...rest
 }) => {
+  const locale = {
+    ...global.locale,
+    ...propsLocale
+  };
   const [top, setTop] = useState();
   const wrapperRef = useCallback(node => {
     if (node !== null) {
@@ -406,8 +411,9 @@ const Table = ({
     ref: ref,
     scroll: fullscreen ? {
       x: 100,
-      y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + fullscreen.deltaY}px)`
-    } : undefined
+      y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY || 0)}px)`
+    } : undefined,
+    locale: locale
   }, rest)), tableColumnSettingsDialogState && /*#__PURE__*/React.createElement(TableColumnSettings, _extends({
     onColumnVisible: columnVisible,
     onColumnFixed: columnFixed,
