@@ -7,7 +7,7 @@ const columns = [
     key: 'name',
     width: 100,
     fixed: 'left',
-    defaultHidden: true,
+    //defaultHidden: true,
     filters: [
       {
         text: 'Joe',
@@ -30,6 +30,7 @@ const columns = [
         dataIndex: 'age',
         key: 'age',
         width: 150,
+        defaultSortOrder: 'descend',
         sorter: (a, b) => a.age - b.age,
       },
       {
@@ -108,6 +109,7 @@ const App = () => (
     size="middle"
     stateStorable={{prefix: 'GroupingTableHead'}}
     fullscreen={true}
+    defaults={{sortable: true}}
   />
 );
 export default App;

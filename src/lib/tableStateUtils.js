@@ -202,7 +202,7 @@ export const stateToColumns = (state, columns) => {
 export const getInitialState = (columns, stateStorable, history) => {
     const columnsDefaultState = getColumnsDefaultState(columns);
     const stateFromStorage = getStateFromStorage(columns, stateStorable, history);
-    if (!stateFromStorage) return columnsDefaultState;
+    if (!stateFromStorage || !stateFromStorage.columns) return columnsDefaultState;
     for (let column of columns) {
         let columnFromStorage = stateFromStorage.columns[column.key];
         if (columnFromStorage) columnsDefaultState.columns[column.key] = {
