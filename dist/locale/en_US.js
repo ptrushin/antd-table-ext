@@ -13,7 +13,8 @@ const locale = {
       exclude: '(Except)',
       filter: 'OK',
       reset: 'Reset',
-      orTryToFind: 'or try to find specific'
+      orTryToFind: 'or try to find specific',
+      exportToExcel: 'Export to Excel'
     }
   }
 };

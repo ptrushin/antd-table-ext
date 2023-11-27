@@ -21,3 +21,7 @@
     text-overflow: ellipsis;
     word-break: keep-all;
 }
+
+.button-block button {
+    margin-bottom: 5px;
+}

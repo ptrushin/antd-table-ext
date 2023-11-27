@@ -424,7 +424,9 @@ const Table = ({
       visible: false
     }),
     locale: locale
-  }, tableColumnSettingsDialogState))));
+  }, tableColumnSettingsDialogState, {
+    tableRef: ref
+  }))));
 };
 
 //Table.Summary = AntdTable.Summary;

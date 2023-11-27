@@ -15,7 +15,8 @@ const locale = {
       exclude: '(Кроме выбранных)',
       filter: 'Фильтровать',
       reset: 'Очистить',
-      orTryToFind: 'или попробуйте найти'
+      orTryToFind: 'или попробуйте найти',
+      exportToExcel: 'Экспорт в Excel'
     }
   }
 };

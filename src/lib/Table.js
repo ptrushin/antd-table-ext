@@ -367,7 +367,9 @@ const Table = ({
                 allColumns={allColumns}
                 onClose={() => setTableColumnSettingsDialogState({ visible: false })}
                 locale={locale}
-                {...tableColumnSettingsDialogState} />}
+                {...tableColumnSettingsDialogState}
+                tableRef={ref}
+                />}
         </MultiHeaderMovableTitle>
     </div>
 };

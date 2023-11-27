@@ -1,10 +1,12 @@
 import React from 'react';
 import { Modal, Button, Tabs, Radio, Tree } from 'antd';
 import global from './global';
+import './table.css';
+import excelExporter from './excelExporter';
 
 const width = 400;
 
-const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKey, onResetColumnSettings, onClose, columns, allColumns, onColumnVisible, onColumnFixed }) => {
+const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKey, onResetColumnSettings, onClose, columns, allColumns, onColumnVisible, onColumnFixed, tableRef }) => {
     const locale = {...global.locale, ...propsLocale};
 
     const column = allColumns.filter(_ => _.key === columnKey)[0];
@@ -43,6 +45,9 @@ const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKe
     const getCheckedKeys = () => {
         return allColumns.filter(_ => !_.currentHidden).map(_ => _.key);
     }
+    const exportToExcel = () => {
+        excelExporter(tableRef.current.children[0].getElementsByClassName('ant-table-container')[0]);
+    }
     return visible &&
         <Modal open={visible} onCancel={onClose} width={width} closable={false} footer={null} style={{ position: 'absolute', left: `${(x > width + 100 ? x - width : x)}px`, top: `${y}px` }}>
             <Tabs items={[
@@ -73,9 +78,10 @@ const TableColumnSettings = ({ locale: propsLocale = {}, visible, x, y, columnKe
                 {
                     label: locale.AntdTableExt.Table.common,
                     key: 'common',
-                    children: <React.Fragment>
+                    children: <div className='button-block'>
+                        <Button onClick={exportToExcel}>{locale.AntdTableExt.Table.exportToExcel}</Button><br/>
                         <Button onClick={onResetColumnSettings}>{locale.AntdTableExt.Table.resetToDefault}</Button>
-                    </React.Fragment>
+                    </div>
                 }]}
             />
         </Modal>
