@@ -12,9 +12,7 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 * try to multiple sort with shift button
 * column current width, index, visible, fix store in local storage between browser sessions - try to close and open page
 * column filter and sort can store in address bar (by settings)
-
-# restrictions
-* JSX style not supported
+* export to excel
 
 # examples
 * all examples were taken from https://ant.design/components/table
