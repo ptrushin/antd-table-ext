@@ -2,7 +2,7 @@ import xlsx from 'better-xlsx';
 import { saveAs } from 'file-saver';
 import { getColumnsTreeData, getTreeLeafColumns, getColumnsHeadersCnt, getRecordValue } from './columnUtils';
 
-export const excelExporter = (columns, dataSource, {fileName = 'excel.xlsx', worksheetName = 'Worksheet', fontName = 'Calibri', fontSize = 11} = {}) => {
+export const excelExporter = (columns, dataSource, { fileName = 'excel.xlsx', worksheetName = 'Worksheet', fontName = 'Calibri', fontSize = 11 } = {}) => {
     const file = new xlsx.File();
     const sheet = file.addSheet(worksheetName);
     const treeColumns = getColumnsTreeData(columns, true);
@@ -43,10 +43,14 @@ export const excelExporter = (columns, dataSource, {fileName = 'excel.xlsx', wor
     for (let row of dataSource) {
         let c = 0;
         for (let column of treeLeafColumns) {
+            console.log(column.key, column)
             const v = getRecordValue(row, column.dataIndex);
-            initCell(r, c, column.render
-                            ? column.render(v, row)
-                            : v);
+            const vv = column.renderToExcel
+                ? column.renderToExcel(v, row)
+                : column.render
+                    ? column.render(v, row)
+                    : v
+            initCell(r, c, vv);
             c++;
         }
         r++;

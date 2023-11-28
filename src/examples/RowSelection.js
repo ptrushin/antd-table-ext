@@ -7,6 +7,7 @@ const columns = [
     dataIndex: 'name',
     // eslint-disable-next-line
     render: (text) => <a>{text}</a>,
+    renderToExcel: (text) => text
   },
   {
     title: 'Age',
