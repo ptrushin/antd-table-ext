@@ -9,6 +9,7 @@ import { getInitialState, setStateToStorage, changeColumnState, columnsToState, 
 import './table.css';
 import { useHistory } from './useHistory';
 import global from './global';
+import excelExporter from './excelExporter';
 const cloneDeep = require('clone-deep');
 let isShiftPressed = false;
 window.addEventListener('keyup', e => isShiftPressed = e.shiftKey);
@@ -41,6 +42,7 @@ const Table = ({
   locale: propsLocale = {},
   addLastColumn = true,
   fullscreen,
+  dataSource,
   ...rest
 }) => {
   const locale = {
@@ -388,15 +390,15 @@ const Table = ({
         */
   }
   let tableColumns = prepareColumns(cloneDeep(topLevelColumns), 0);
+  const exportToExcel = () => {
+    excelExporter(topLevelColumns, dataSource);
+  };
   return /*#__PURE__*/React.createElement("div", {
     ref: wrapperRef
   }, /*#__PURE__*/React.createElement(MultiHeaderMovableTitle, {
     columnMoved: columnMoved,
     levels: columnHeadersCnt
-  }, /*#__PURE__*/React.createElement(AntdTable
-  //bordered={true}
-  //size='small'
-  , _extends({
+  }, /*#__PURE__*/React.createElement(AntdTable, _extends({
     columns: tableColumns,
     components: {
       header: {
@@ -404,16 +406,14 @@ const Table = ({
       },
       ...components
     },
-    onChange: change
-    /*scroll={{
-        y: true
-    }}*/,
+    onChange: change,
     ref: ref,
     scroll: fullscreen ? {
       x: 100,
       y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY || 0)}px)`
     } : undefined,
-    locale: locale
+    locale: locale,
+    dataSource: dataSource
   }, rest)), tableColumnSettingsDialogState && /*#__PURE__*/React.createElement(TableColumnSettings, _extends({
     onColumnVisible: columnVisible,
     onColumnFixed: columnFixed,
@@ -425,7 +425,8 @@ const Table = ({
     }),
     locale: locale
   }, tableColumnSettingsDialogState, {
-    tableRef: ref
+    tableRef: ref,
+    onExportToExcel: exportToExcel
   }))));
 };
 

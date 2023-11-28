@@ -1,8 +1,8 @@
 import React from 'react';
 import { Modal, Button, Tabs, Radio, Tree } from 'antd';
+import { getColumnsTreeData } from './columnUtils';
 import global from './global';
 import './table.css';
-import excelExporter from './excelExporter';
 const width = 400;
 const TableColumnSettings = ({
   locale: propsLocale = {},
@@ -16,7 +16,8 @@ const TableColumnSettings = ({
   allColumns,
   onColumnVisible,
   onColumnFixed,
-  tableRef
+  tableRef,
+  onExportToExcel
 }) => {
   const locale = {
     ...global.locale,
@@ -42,10 +43,13 @@ const TableColumnSettings = ({
       });
     }
   };
+  const getCheckedKeys = () => {
+    return allColumns.filter(_ => !_.currentHidden).map(_ => _.key);
+  };
   const getTreeData = () => {
     const getNodes = columns => {
       let nodes = [];
-      for (let column of columns.sort((a, b) => a.currentIndex - b.currentIndex)) {
+      for (let column of columns) {
         let node = {
           title: column.title instanceof Function ? column.title() : column.title,
           key: column.key,
@@ -58,13 +62,7 @@ const TableColumnSettings = ({
       }
       return nodes;
     };
-    return getNodes(columns);
-  };
-  const getCheckedKeys = () => {
-    return allColumns.filter(_ => !_.currentHidden).map(_ => _.key);
-  };
-  const exportToExcel = () => {
-    excelExporter(tableRef.current.children[0].getElementsByClassName('ant-table-container')[0]);
+    return getNodes(getColumnsTreeData(columns));
   };
   return visible && /*#__PURE__*/React.createElement(Modal, {
     open: visible,
@@ -106,9 +104,9 @@ const TableColumnSettings = ({
       key: 'common',
       children: /*#__PURE__*/React.createElement("div", {
         className: "button-block"
-      }, /*#__PURE__*/React.createElement(Button, {
-        onClick: exportToExcel
-      }, locale.AntdTableExt.Table.exportToExcel), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(Button, {
+      }, onExportToExcel && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+        onClick: onExportToExcel
+      }, locale.AntdTableExt.Table.exportToExcel), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement(Button, {
         onClick: onResetColumnSettings
       }, locale.AntdTableExt.Table.resetToDefault))
     }]

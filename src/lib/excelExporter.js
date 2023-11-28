@@ -1,25 +1,57 @@
-export const saveAs = (uri, filename) => {
-    var link = document.createElement('a');
-    if (typeof link.download === 'string') {
-        link.href = uri;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } else {
-        window.open(uri);
+import xlsx from 'better-xlsx';
+import { saveAs } from 'file-saver';
+import { getColumnsTreeData, getTreeLeafColumns, getColumnsHeadersCnt, getRecordValue } from './columnUtils';
+
+export const excelExporter = (columns, dataSource, {fileName = 'excel.xlsx', worksheetName = 'Worksheet', fontName = 'Calibri', fontSize = 11} = {}) => {
+    const file = new xlsx.File();
+    const sheet = file.addSheet(worksheetName);
+    const treeColumns = getColumnsTreeData(columns, true);
+    const treeLeafColumns = getTreeLeafColumns(treeColumns);
+    const headersCnt = getColumnsHeadersCnt(treeLeafColumns);
+    for (let i in treeLeafColumns) {
+        sheet.col(i).style.font.size = fontSize;
+        sheet.col(i).style.font.name = fontName;
     }
-}
-
-export const excelExporter = (table, file = 'excel.xls', worksheet = 'Worksheet') => {
-    var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-
-    if (!table.nodeType) table = document.getElementById(table)
-    var ctx = { worksheet: worksheet, table: table.innerHTML }
-    saveAs(uri + base64(format(template, ctx)), file);
+    const initCell = (r, c, value) => {
+        const cell = sheet.cell(r, c);
+        cell.style.font.size = fontSize;
+        cell.style.font.name = fontName;
+        cell.value = value;
+        return cell;
+    }
+    const showHeaders = (columns, r, c) => {
+        let cc = c;
+        let cl = 0;
+        for (let column of columns) {
+            //const row = sheet.row(r);
+            const cell = initCell(r, cc, column.title instanceof Function ? column.title() : column.title);
+            if (column.children && column.children.length > 0) {
+                const l = showHeaders(column.children, r + 1, cc);
+                cell.hMerge = l - 1;
+                cc += l;
+                cl += l;
+            } else {
+                if (r < headersCnt - 1) cell.vMerge = headersCnt - r - 1;
+                cc++;
+                cl++;
+            }
+        }
+        return cl;
+    }
+    showHeaders(treeColumns, 0, 0);
+    let r = headersCnt;
+    for (let row of dataSource) {
+        let c = 0;
+        for (let column of treeLeafColumns) {
+            const v = getRecordValue(row, column.dataIndex);
+            initCell(r, c, column.render
+                            ? column.render(v, row)
+                            : v);
+            c++;
+        }
+        r++;
+    }
+    file.saveAs('blob').then(content => saveAs(content, fileName));
 }
 
 export default excelExporter;

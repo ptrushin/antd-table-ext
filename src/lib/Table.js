@@ -8,6 +8,7 @@ import { getInitialState, setStateToStorage, changeColumnState, columnsToState, 
 import './table.css';
 import { useHistory } from './useHistory';
 import global from './global';
+import excelExporter from './excelExporter';
 
 const cloneDeep = require('clone-deep');
 
@@ -44,6 +45,7 @@ const Table = ({
     locale: propsLocale = {},
     addLastColumn = true,
     fullscreen,
+    dataSource,
     ...rest }) => {
     const locale = {...global.locale, ...propsLocale};
     const [top, setTop] = useState();
@@ -338,11 +340,13 @@ const Table = ({
 
     let tableColumns = prepareColumns(cloneDeep(topLevelColumns), 0);
 
+    const exportToExcel = () => {
+        excelExporter(topLevelColumns, dataSource);
+    }
+
     return <div ref={wrapperRef}>
         <MultiHeaderMovableTitle columnMoved={columnMoved} levels={columnHeadersCnt}>
             <AntdTable
-                //bordered={true}
-                //size='small'
                 columns={tableColumns}
                 components={{
                     header: {
@@ -351,12 +355,10 @@ const Table = ({
                     ...components
                 }}
                 onChange={change}
-                /*scroll={{
-                    y: true
-                }}*/
                 ref={ref}
                 scroll={fullscreen ? { x: 100, y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY || 0)}px)` } : undefined}
                 locale={locale}
+                dataSource={dataSource}
                 {...rest}
             />
             {tableColumnSettingsDialogState && <TableColumnSettings
@@ -369,6 +371,7 @@ const Table = ({
                 locale={locale}
                 {...tableColumnSettingsDialogState}
                 tableRef={ref}
+                onExportToExcel={exportToExcel}
                 />}
         </MultiHeaderMovableTitle>
     </div>

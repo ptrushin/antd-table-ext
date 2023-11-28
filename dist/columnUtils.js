@@ -40,3 +40,35 @@ export const getColumnsSortIndexMap = columns => {
     [_.key]: i + 1
   })));
 };
+export const getColumnsTreeData = (columns, onlyVisible = false) => {
+  const getNodes = columns => {
+    let nodes = [];
+    for (let column of columns.sort((a, b) => a.currentIndex - b.currentIndex)) {
+      if (onlyVisible && column.currentHidden) continue;
+      let node = {
+        ...column
+      };
+      if (column.children) {
+        node.children = getNodes(column.children);
+      }
+      nodes.push(node);
+    }
+    return nodes;
+  };
+  return getNodes(columns);
+};
+export const getTreeLeafColumns = treeColumns => {
+  let columns = [];
+  for (let column of treeColumns) {
+    if (!column.children || column.children.length === 0) columns.push(column);else columns = [...columns, ...getTreeLeafColumns(column.children)];
+  }
+  return columns;
+};
+export function getRecordValue(record, dataIndex) {
+  const getValue = (record, dataIndexArr, level = 0) => {
+    return level === dataIndexArr.length ? record : getValue(record[dataIndexArr[level]], dataIndexArr, level + 1);
+  };
+  if (!record) return record;
+  const index = Array.isArray(dataIndex) ? dataIndex : dataIndex.split('.');
+  return getValue(record, index, 0);
+}
