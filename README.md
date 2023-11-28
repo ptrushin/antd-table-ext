@@ -59,5 +59,5 @@ currentSortIndex ||
 description ||
 filterSerialize ||
 filterDeserialize ||
-renderToExcel ||
+renderToExcel | false/function like render | true
 

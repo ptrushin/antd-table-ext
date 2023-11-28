@@ -40,11 +40,12 @@ export const getColumnsSortIndexMap = columns => {
     [_.key]: i + 1
   })));
 };
-export const getColumnsTreeData = (columns, onlyVisible = false) => {
+export const getColumnsTreeData = (columns, onlyVisible = false, toExcel = false) => {
   const getNodes = columns => {
     let nodes = [];
     for (let column of columns.sort((a, b) => a.currentIndex - b.currentIndex)) {
       if (onlyVisible && column.currentHidden) continue;
+      if (toExcel && column.renderToExcel === false) continue;
       let node = {
         ...column
       };

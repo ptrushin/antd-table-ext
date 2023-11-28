@@ -31,6 +31,7 @@ const columns = [
   },
   {
     title: 'Action',
+    renderToExcel: false,
     key: 'action',
     sorter: true,
     render: () => (

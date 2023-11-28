@@ -1,5 +1,8 @@
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import xlsx from 'better-xlsx';
 import { saveAs } from 'file-saver';
+import { htmlToText } from 'html-to-text';
 import { getColumnsTreeData, getTreeLeafColumns, getColumnsHeadersCnt, getRecordValue } from './columnUtils';
 export const excelExporter = (columns, dataSource, {
   fileName = 'excel.xlsx',
@@ -9,7 +12,7 @@ export const excelExporter = (columns, dataSource, {
 } = {}) => {
   const file = new xlsx.File();
   const sheet = file.addSheet(worksheetName);
-  const treeColumns = getColumnsTreeData(columns, true);
+  const treeColumns = getColumnsTreeData(columns, true, true);
   const treeLeafColumns = getTreeLeafColumns(treeColumns);
   const headersCnt = getColumnsHeadersCnt(treeLeafColumns);
   for (let i in treeLeafColumns) {
@@ -28,7 +31,8 @@ export const excelExporter = (columns, dataSource, {
     let cl = 0;
     for (let column of columns) {
       //const row = sheet.row(r);
-      const cell = initCell(r, cc, column.title instanceof Function ? column.title() : column.title);
+      const cell = initCell(r, cc, htmlToText(renderToString(column.title instanceof Function ? column.title() : column.title)));
+      cell.style.font.bold = true;
       if (column.children && column.children.length > 0) {
         const l = showHeaders(column.children, r + 1, cc);
         cell.hMerge = l - 1;
@@ -47,8 +51,9 @@ export const excelExporter = (columns, dataSource, {
   for (let row of dataSource) {
     let c = 0;
     for (let column of treeLeafColumns) {
-      const v = getRecordValue(row, column.dataIndex);
-      initCell(r, c, column.render ? column.render(v, row) : v);
+      const v = column.dataIndex ? getRecordValue(row, column.dataIndex) : null;
+      const vv = column.renderToExcel ? column.renderToExcel(v, row) : column.render ? htmlToText(renderToString(column.render(v, row))) : v;
+      initCell(r, c, vv);
       c++;
     }
     r++;
