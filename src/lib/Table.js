@@ -240,7 +240,7 @@ const Table = ({
             props);
     }
 
-    let hasProcentColumns = addLastColumn && leafColumns.some(_ => !_.width || (!Number.isInteger(_.width) && _.width.endsWith('%')));
+    let hasProcentColumns = addLastColumn && leafColumns.filter(_ => !_.currentHidden).some(_ => !_.width || (!Number.isInteger(_.width) && _.width.endsWith('%')));
 
     // Формируем колонки для antd table
     const prepareColumns = (columns, level) => {

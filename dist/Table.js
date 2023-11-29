@@ -264,7 +264,7 @@ const Table = ({
     columnsToState(setState, allColumns);
     if (onChange) onChange(newPagination, filters, !sorter || !Array.isArray(sorter) ? sorter : sorter.sort((a, b) => (columnsMap[a.columnKey].currentSortIndex || 0) - (columnsMap[b.columnKey].currentSortIndex || 0)), props);
   };
-  let hasProcentColumns = addLastColumn && leafColumns.some(_ => !_.width || !Number.isInteger(_.width) && _.width.endsWith('%'));
+  let hasProcentColumns = addLastColumn && leafColumns.filter(_ => !_.currentHidden).some(_ => !_.width || !Number.isInteger(_.width) && _.width.endsWith('%'));
 
   // Формируем колонки для antd table
   const prepareColumns = (columns, level) => {
