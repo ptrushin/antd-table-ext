@@ -43,16 +43,19 @@ const Table = ({
   addLastColumn = true,
   fullscreen,
   dataSource,
+  pagination,
   ...rest
 }) => {
   const locale = {
     ...global.locale,
     ...propsLocale
   };
-  const [top, setTop] = useState();
+  const [tbodyTop, setTbodyTop] = useState();
+  const [paddingBottom, setPaddingBottom] = useState();
   const wrapperRef = useCallback(node => {
     if (node !== null) {
-      setTop(node.getBoundingClientRect().top);
+      setTbodyTop(parseInt(node.querySelector('tbody').getBoundingClientRect().top));
+      setPaddingBottom(parseInt(window.getComputedStyle(node.parentElement, null).getPropertyValue('padding-bottom')));
     }
   }, []);
   const columnDefaults = {
@@ -393,6 +396,11 @@ const Table = ({
   const exportToExcel = () => {
     excelExporter(topLevelColumns, dataSource);
   };
+  const getDeltaY = () => {
+    const paginationHeight = pagination === false ? 0 : rest.size === 'small' ? 34 : rest.size === 'middle' ? 34 : 42;
+    const bottomHeight = fullscreen.deltaY || paddingBottom || 0;
+    return tbodyTop + paginationHeight + bottomHeight;
+  };
   return /*#__PURE__*/React.createElement("div", {
     ref: wrapperRef
   }, /*#__PURE__*/React.createElement(MultiHeaderMovableTitle, {
@@ -410,10 +418,11 @@ const Table = ({
     ref: ref,
     scroll: fullscreen ? {
       x: 100,
-      y: `calc(100vh - ${top + (rest.size === 'small' ? 38 : rest.size === 'middle' ? 46 : 54) * columnHeadersCnt + (rest.size === 'big' ? 68 : 60) + (fullscreen.deltaY || 0)}px)`
+      y: `calc(100vh - ${getDeltaY()}px)`
     } : undefined,
     locale: locale,
-    dataSource: dataSource
+    dataSource: dataSource,
+    pagination: pagination
   }, rest)), tableColumnSettingsDialogState && /*#__PURE__*/React.createElement(TableColumnSettings, _extends({
     onColumnVisible: columnVisible,
     onColumnFixed: columnFixed,

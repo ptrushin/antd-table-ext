@@ -25,3 +25,7 @@
 .button-block button {
     margin-bottom: 5px;
 }
+
+.ant-table-wrapper .ant-table-pagination.ant-pagination {
+    margin: 10px 0px 0px 0px;
+}
