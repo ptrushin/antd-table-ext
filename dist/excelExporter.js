@@ -4,6 +4,15 @@ import xlsx from 'better-xlsx';
 import { saveAs } from 'file-saver';
 import { htmlToText } from 'html-to-text';
 import { getColumnsTreeData, getTreeLeafColumns, getColumnsHeadersCnt, getRecordValue } from './columnUtils';
+const htmlToTextOptions = {
+  tags: {
+    'a': {
+      options: {
+        ignoreHref: true
+      }
+    }
+  }
+};
 export const excelExporter = (columns, dataSource, {
   fileName = 'excel.xlsx',
   worksheetName = 'Worksheet',
@@ -31,7 +40,7 @@ export const excelExporter = (columns, dataSource, {
     let cl = 0;
     for (let column of columns) {
       //const row = sheet.row(r);
-      const cell = initCell(r, cc, htmlToText(renderToString(column.title instanceof Function ? column.title() : column.title)));
+      const cell = initCell(r, cc, htmlToText(renderToString(column.title instanceof Function ? column.title() : column.title), htmlToTextOptions));
       cell.style.font.bold = true;
       if (column.children && column.children.length > 0) {
         const l = showHeaders(column.children, r + 1, cc);
@@ -52,7 +61,7 @@ export const excelExporter = (columns, dataSource, {
     let c = 0;
     for (let column of treeLeafColumns) {
       const v = column.dataIndex ? getRecordValue(row, column.dataIndex) : null;
-      const vv = column.renderToExcel ? column.renderToExcel(v, row) : column.render ? htmlToText(renderToString(column.render(v, row))) : v;
+      const vv = column.renderToExcel ? column.renderToExcel(v, row) : column.render ? htmlToText(renderToString(column.render(v, row)), htmlToTextOptions) : v;
       initCell(r, c, vv);
       c++;
     }

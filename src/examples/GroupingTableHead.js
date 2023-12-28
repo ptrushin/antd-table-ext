@@ -21,6 +21,7 @@ const columns = [
     onFilter: (value, record) => record.name.indexOf(value) === 0,
     filterSerialize: (value) => !value ? value : value.join("|"),
     filterDeserialize: (value) => !value ? value : value.split("|"),
+    render: (text, record) => <a href='http://ya.ru'>{text}</a>
   },
   {
     title: 'Other',
