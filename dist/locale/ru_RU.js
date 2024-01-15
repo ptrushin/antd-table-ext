@@ -1,5 +1,5 @@
 import en_US from './en_US';
-const merge = require('deepmerge');
+import merge from 'deepmerge';
 const locale = {
   AntdTableExt: {
     Table: {
