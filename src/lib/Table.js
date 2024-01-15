@@ -454,7 +454,7 @@ const MovableTitle = ({ children, columnMoved, level }) => {
 const MultiHeaderMovableTitle = ({ children, columnMoved, levels }) => {
     let component = children;
     for (let level = 0; level < levels; level++) {
-        component = <MovableTitle columnMoved={columnMoved} level={level}>{component}</MovableTitle>
+        component = <MovableTitle columnMoved={columnMoved} level={level} key={level}>{component}</MovableTitle>
     }
     return component;
 }

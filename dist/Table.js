@@ -526,7 +526,8 @@ const MultiHeaderMovableTitle = ({
   for (let level = 0; level < levels; level++) {
     component = /*#__PURE__*/React.createElement(MovableTitle, {
       columnMoved: columnMoved,
-      level: level
+      level: level,
+      key: level
     }, component);
   }
   return component;
