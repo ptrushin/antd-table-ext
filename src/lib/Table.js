@@ -443,8 +443,7 @@ const MovableTitle = ({ children, columnMoved, level }) => {
         handleSelector: `.movable-level-${level}`,
         ignoreSelector: "react-resizable-handle",
         lineClassName: "ReactDragListView-line",
-        enableScroll: true,
-        key: level
+        enableScroll: true
     };
     return <ReactDragListView.DragColumn {...dragProps}>
         {children}
@@ -454,7 +453,7 @@ const MovableTitle = ({ children, columnMoved, level }) => {
 const MultiHeaderMovableTitle = ({ children, columnMoved, levels }) => {
     let component = children;
     for (let level = 0; level < levels; level++) {
-        component = <MovableTitle columnMoved={columnMoved} level={level} key={level}>{component}</MovableTitle>
+        component = <MovableTitle columnMoved={columnMoved} level={level}>{component}</MovableTitle>
     }
     return component;
 }
