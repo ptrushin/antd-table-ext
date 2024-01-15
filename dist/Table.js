@@ -512,7 +512,8 @@ const MovableTitle = ({
     handleSelector: `.movable-level-${level}`,
     ignoreSelector: "react-resizable-handle",
     lineClassName: "ReactDragListView-line",
-    enableScroll: true
+    enableScroll: true,
+    key: level
   };
   return /*#__PURE__*/React.createElement(ReactDragListView.DragColumn, dragProps, children);
 };

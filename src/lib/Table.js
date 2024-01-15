@@ -443,7 +443,8 @@ const MovableTitle = ({ children, columnMoved, level }) => {
         handleSelector: `.movable-level-${level}`,
         ignoreSelector: "react-resizable-handle",
         lineClassName: "ReactDragListView-line",
-        enableScroll: true
+        enableScroll: true,
+        key: level
     };
     return <ReactDragListView.DragColumn {...dragProps}>
         {children}
