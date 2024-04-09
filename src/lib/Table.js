@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Table as AntdTable } from 'antd';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { Table as AntdTable, ConfigProvider } from 'antd';
 import { Resizable } from "react-resizable";
 import ReactDragListView from "react-drag-listview";
 import TableColumnSettings from './TableColumnSettings';
@@ -48,8 +48,9 @@ const Table = ({
     pagination,
     direction,
     ...rest }) => {
+    const context = useContext(ConfigProvider.ConfigContext);
     const locale = {...global.locale, ...propsLocale};
-    const tDirection = direction || global.direction;
+    const tDirection = direction || global.direction || context.direction;
     const [tbodyTop, setTbodyTop] = useState();
     const [paddingBottom, setPaddingBottom] = useState();
 
@@ -404,7 +405,6 @@ export default exportTable;
 
 const ResizableTitle = (props) => {
     const { onResize, onInitWidth, width, resizable, notPxWidthDelta, columnKey, direction, ...restProps } = props;
-    console.log('dir', direction)
     const ref = useRef();
     let ifWidthInPixels = width && (Number.isInteger(width) || width.endsWith('px'));
     useEffect(() => {

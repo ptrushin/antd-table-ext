@@ -1,6 +1,6 @@
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Table as AntdTable } from 'antd';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { Table as AntdTable, ConfigProvider } from 'antd';
 import { Resizable } from "react-resizable";
 import ReactDragListView from "react-drag-listview";
 import TableColumnSettings from './TableColumnSettings';
@@ -47,11 +47,12 @@ const Table = ({
   direction,
   ...rest
 }) => {
+  const context = useContext(ConfigProvider.ConfigContext);
   const locale = {
     ...global.locale,
     ...propsLocale
   };
-  const tDirection = direction || global.direction;
+  const tDirection = direction || global.direction || context.direction;
   const [tbodyTop, setTbodyTop] = useState();
   const [paddingBottom, setPaddingBottom] = useState();
   const wrapperRef = useCallback(node => {
@@ -469,7 +470,6 @@ const ResizableTitle = props => {
     direction,
     ...restProps
   } = props;
-  console.log('dir', direction);
   const ref = useRef();
   let ifWidthInPixels = width && (Number.isInteger(width) || width.endsWith('px'));
   useEffect(() => {

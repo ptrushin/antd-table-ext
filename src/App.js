@@ -33,14 +33,6 @@ function App() {
 		}
 		forceUpdate();
 	}, [locale])
-	useEffect(() => {
-		if (direction === 'rtl') {
-			antdTableExt.direction = direction;
-		} else {
-			antdTableExt.direction = undefined;
-		}
-		forceUpdate();
-	}, [direction])
 	return <ConfigProvider direction={direction} locale={(locale === 'ru_RU' ? ext_ru_RU : undefined)}>
 	<div style={{ padding: 20 }}>
 		Locale: <Select value={locale} onChange={setLocale} style={{marginRight: 10}}>
