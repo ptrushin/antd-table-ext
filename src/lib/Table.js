@@ -46,8 +46,10 @@ const Table = ({
     fullscreen,
     dataSource,
     pagination,
+    direction,
     ...rest }) => {
     const locale = {...global.locale, ...propsLocale};
+    const tDirection = direction || global.direction;
     const [tbodyTop, setTbodyTop] = useState();
     const [paddingBottom, setPaddingBottom] = useState();
 
@@ -272,6 +274,7 @@ const Table = ({
                 column.onHeaderCell = (column) => ({
                     resizable: !column.children && getAble(column, 'resizable'),
                     width: column.width,
+                    direction: tDirection,
                     columnKey: column.key,
                     notPxWidthDelta: addLastColumn ? -1 : 0,
                     onResize: (e, { size }) => columnResized({ columnKey: column.key, width: size.width }),
@@ -400,7 +403,8 @@ exportTable.ColumnGroup = AntdTable.ColumnGroup;
 export default exportTable;
 
 const ResizableTitle = (props) => {
-    const { onResize, onInitWidth, width, resizable, notPxWidthDelta, columnKey, ...restProps } = props;
+    const { onResize, onInitWidth, width, resizable, notPxWidthDelta, columnKey, direction, ...restProps } = props;
+    console.log('dir', direction)
     const ref = useRef();
     let ifWidthInPixels = width && (Number.isInteger(width) || width.endsWith('px'));
     useEffect(() => {
@@ -424,8 +428,10 @@ const ResizableTitle = (props) => {
                     onClick={(e) => {
                         e.stopPropagation();
                     }}
+                    style={direction === 'rtl' ? {left: 0} : {right: 0}}
                 />
             }
+            resizeHandles={direction === 'rtl' ? ['w'] : undefined}
             onResize={onResize}
             draggableOpts={{ enableUserSelectHack: false }}
         >

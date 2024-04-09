@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { Select } from 'antd';
 import Basic from './examples/Basic';
 import RowSelection from './examples/RowSelection';
@@ -13,26 +13,45 @@ import DynamicSettings from './examples/DynamicSettings';
 import EditableRows from './examples/EditableRows';
 import NestedTables from './examples/NestedTables';
 import Summary from './examples/Summary';
+import { ConfigProvider } from 'antd';
 
 import antdTableExt from './lib';
 
+import ext_ru_RU from 'antd/es/locale/ru_RU';
 import en_US from './lib/locale/en_US';
 import ru_RU from './lib/locale/ru_RU';
 
 function App() {
 	const [locale, setLocale] = useState('en_US');
+	const [direction, setDirection] = useState('ltr');
+	const [forceUpdateRequired, forceUpdate] = useReducer(x => x + 1, 1);
 	useEffect(() => {
-		if (locale == 'ru_RU') {
+		if (locale === 'ru_RU') {
 			antdTableExt.locale = ru_RU;
 		} else {
 			antdTableExt.locale = en_US;
 		}
+		forceUpdate();
 	}, [locale])
-	return <div style={{ padding: 20 }}>
-		Locale: <Select value={locale} onChange={setLocale}>
+	useEffect(() => {
+		if (direction === 'rtl') {
+			antdTableExt.direction = direction;
+		} else {
+			antdTableExt.direction = undefined;
+		}
+		forceUpdate();
+	}, [direction])
+	return <ConfigProvider direction={direction} locale={(locale === 'ru_RU' ? ext_ru_RU : undefined)}>
+	<div style={{ padding: 20 }}>
+		Locale: <Select value={locale} onChange={setLocale} style={{marginRight: 10}}>
             <Select.Option value={'en_US'}>en_US</Select.Option>
             <Select.Option value={'ru_RU'}>ru_RU</Select.Option>
-        </Select><br/>
+        </Select>
+		Direction: <Select value={direction} onChange={setDirection}>
+            <Select.Option value={'ltr'}>ltr</Select.Option>
+            <Select.Option value={'rtl'}>rtl</Select.Option>
+        </Select>
+		<br/>
 		GroupingTableHead:<br /><GroupingTableHead />
 		<br />
 		Basic:<br /><Basic />
@@ -59,6 +78,7 @@ function App() {
 		<br />
 		Summary:<br /><Summary />
 	</div>
+	</ConfigProvider>
 }
 
 export default App;

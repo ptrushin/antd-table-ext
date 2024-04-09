@@ -44,12 +44,14 @@ const Table = ({
   fullscreen,
   dataSource,
   pagination,
+  direction,
   ...rest
 }) => {
   const locale = {
     ...global.locale,
     ...propsLocale
   };
+  const tDirection = direction || global.direction;
   const [tbodyTop, setTbodyTop] = useState();
   const [paddingBottom, setPaddingBottom] = useState();
   const wrapperRef = useCallback(node => {
@@ -302,6 +304,7 @@ const Table = ({
         column.onHeaderCell = column => ({
           resizable: !column.children && getAble(column, 'resizable'),
           width: column.width,
+          direction: tDirection,
           columnKey: column.key,
           notPxWidthDelta: addLastColumn ? -1 : 0,
           onResize: (e, {
@@ -463,8 +466,10 @@ const ResizableTitle = props => {
     resizable,
     notPxWidthDelta,
     columnKey,
+    direction,
     ...restProps
   } = props;
+  console.log('dir', direction);
   const ref = useRef();
   let ifWidthInPixels = width && (Number.isInteger(width) || width.endsWith('px'));
   useEffect(() => {
@@ -485,8 +490,14 @@ const ResizableTitle = props => {
       className: "react-resizable-handle",
       onClick: e => {
         e.stopPropagation();
+      },
+      style: direction === 'rtl' ? {
+        left: 0
+      } : {
+        right: 0
       }
     }),
+    resizeHandles: direction === 'rtl' ? ['w'] : undefined,
     onResize: onResize,
     draggableOpts: {
       enableUserSelectHack: false
