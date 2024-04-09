@@ -18,7 +18,8 @@ Examples - https://ptrushin.github.io/antd-table-ext/
 * all examples were taken from https://ant.design/components/table
 
 # localization
-* gets from locale prop
+* locale gets from locale prop or global.locale
+* diration gets from direction prop or global.direction
 
 # additional table properties
 Property | Description| Default
